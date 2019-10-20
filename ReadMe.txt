@@ -14,3 +14,6 @@ password: itra_project_2019
 	Superuser 
 login: Admin
 password: itraproject
+
+	github
+http://github.com/MikhailShapialevich/ItraProject.git
