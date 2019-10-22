@@ -3,6 +3,7 @@ psycopg2
 Version 12
 User Name: postgres
 Password: itraproject2019
+DB: ItraProject2019_DB
 
 	Django 
 version 2.2.6

@@ -1,7 +1,8 @@
 {% extends 'header.html' %}
+<h1>Here you will create a design for your shirt</h1>
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
+  <h2>Create Shirt</h2>
+  <form method="CreateShirtForm">
     {% csrf_token %}
       {% for field in form %}
       <p>
@@ -15,11 +16,11 @@
         {% endfor %}
       </p>
       {% endfor %}
-    <button type="submit">Sign up</button>
+    <button type="submit">Save</button>
   </form>
   <body>
-      <form action="/home">
-       <button>Home</button>
-      </form>
-     </body>
+        <form action="/home">
+         <button>Home</button>
+        </form>
+    </body>
 {% endblock %}

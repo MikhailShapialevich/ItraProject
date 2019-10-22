@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm
+from .forms import SignupForm, CreateShirtForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from .models import Shirt
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -48,3 +49,13 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
+
+def home(request):
+    return render(request, 'home.html')
+
+def shirt(request):
+    return render(request, 'shirt.html')
+
+def create_shirt(request):
+    form = CreateShirtForm()
+    return render(request, 'create_shirt.html', {'form': form})
