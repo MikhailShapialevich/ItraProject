@@ -1,0 +1,17 @@
+{% extends "OurProject/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block main %}
+{% block title %}My Shirts{% endblock %}
+{% block content %}
+    <h1>My Shirts</h1>
+    {% for shirt in shirts %}
+    <div>
+            <p>published: {{ shirt.created_time }}</p>
+            <h1><a href="{% url 'OurProject:shirt_detail' shirt.pk %}">{{ shirt.name_of_shirt }}</a></h1>
+            <p>{{ shirt.description_of_shirt|linebreaksbr }}</p>
+        </div>
+{% endfor %}
+{% endblock %}
+{% endblock %}

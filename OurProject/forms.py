@@ -11,5 +11,5 @@ class SignupForm(UserCreationForm):
 class CreateShirtForm(forms.ModelForm):
     class Meta:
         model = Shirt
-        fields = ('name_of_shirt', 'description_of_shirt')
+        fields = ('picture_of_shirt', 'name_of_shirt', 'description_of_shirt', 'user', 'topic')
 

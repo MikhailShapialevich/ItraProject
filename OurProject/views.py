@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, authenticate, logout
 from .forms import SignupForm, CreateShirtForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -10,6 +10,7 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from .models import Shirt
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -28,7 +29,7 @@ def signup(request):
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(mail_subject, message, to=[to_email])
             email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
+            return render(request, 'acctivate_acc.html')
     
     else:
         form = SignupForm()
@@ -46,9 +47,16 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        return render(request, 'acctivated_done.html')
     else:
         return HttpResponse('Activation link is invalid!')
+
+def personal(request):
+    if request.user.is_authenticated:
+       return render(request, 'registration/personal.html')
+    else:
+        return redirect('http://localhost:8000/user/login')
+
 
 def home(request):
     return render(request, 'home.html')
@@ -59,3 +67,11 @@ def shirt(request):
 def create_shirt(request):
     form = CreateShirtForm()
     return render(request, 'create_shirt.html', {'form': form})
+
+def shirt_list(request):
+    shirts = Shirt.objects.all()
+    return render(request, 'OurProject/Shirt/list.html', {'shirts': shirts})
+
+def shirt_detail(request, pk):
+    shirt = get_object_or_404(Shirt, pk=pk)
+    return render(request,'OurProject/Shirt/detail.html', {'shirt': shirt})

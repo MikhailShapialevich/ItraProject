@@ -31,14 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'OurProject',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'OurProject',
+    'crispy_forms',
+    'imagekit',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +55,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ItraProject.urls'
+LOGIN_REDIRECT_URL =  'http://localhost:8000/home/'
+MEDIA_URL = '/media/'
+STATIC_ROOT = 'C:/django1/virtual3/ItraProject/'
+#MEDIA_ROOT = 'C:/django1/virtual3/ItraProject/media/'
+MEDIA_ROOT = os.path.join('C:/django1/virtual3/ItraProject/', 'media')
 
 TEMPLATES = [
     {
@@ -84,14 +93,13 @@ DATABASES = {
         'PORT': '',
     }
 }
-
 EMAIL_HOST  = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'itraproject2019@gmail.com'
 EMAIL_HOST_PASSWORD = 'itra_project_2019'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -110,6 +118,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+  'DEFAULT_AUTHENTICATION_CLASSES': (
+    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+  ),
+}
 
 
 # Internationalization

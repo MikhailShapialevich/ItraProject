@@ -1,0 +1,18 @@
+{% extends "OurProject/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block main %}
+    <div class="shirt">
+        {% if shirt.published_date %}
+            <div class="date">
+                {{ shirt.created_time }}
+            </div>
+        {% endif %}
+        <h1>{{ shirt.name_of_shirt }}</h1>
+        <img src="C:/django1/virtual3/ItraProject/media/{{ shirt.picture_of_shirt.url }}">
+        <p>topic: {{ shirt.topic }}</p>
+        <p>author: {{ shirt.user }}</p>
+        <p>{{ shirt.description_of_shirt|linebreaksbr }}</p>
+    </div>
+{% endblock %}
